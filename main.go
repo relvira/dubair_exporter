@@ -17,7 +17,6 @@ func getTerminalSecurityDuration(terminal int) (float64, error) {
 	curl := fmt.Sprintf("curl -s https://www.dublinairport.com/flight-information/live-departures | grep \"Terminal</span>\\ T%v\" | awk {'print $5'}", terminal)
 	out, err := exec.Command("bash", "-c", curl).Output()
 	if err != nil {
-		fmt.Println("erorr", err)
 		return 0, err
 	}
 
@@ -42,7 +41,7 @@ func recordMetrics() {
 			}
 			t2Duration, err := getTerminalSecurityDuration(2)
 			if err != nil {
-				fmt.Printf("Error getting T1 duration: %s", err)
+				fmt.Printf("Error getting T2 duration: %s", err)
 			}
 
 			securityTime.With(
